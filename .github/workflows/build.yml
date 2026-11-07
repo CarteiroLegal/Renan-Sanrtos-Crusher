@@ -1,0 +1,23 @@
+name: Compilar plugin
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar
+        run: cmake -B build
+
+      - name: Compilar
+        run: cmake --build build --config Release
+
+      - name: Guardar o plugin
+        uses: actions/upload-artifact@v4
+        with:
+          name: RenanSantosCrusher-VST3
+          path: build/RenanSantosCrusher_artefacts/Release/VST3/
